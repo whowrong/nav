@@ -43,7 +43,7 @@ footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
 <body><div class="wrap" id="app">
 <form class="gate" id="gate" autocomplete="off">
 <h1>我的导航</h1>
-<input type="password" id="pw" placeholder="请输入口令" autocomplete="current-password" autofocus required>
+<input type="password" id="pw" placeholder="我的拼音名" autocomplete="current-password" autofocus required>
 <label><input type="checkbox" id="remember"> 记住我</label>
 <button type="submit" id="go">进入</button>
 <p class="err" id="err" role="alert"></p>
@@ -91,7 +91,7 @@ document.getElementById('gate').addEventListener('submit',async function(ev){
     if(document.getElementById('remember').checked)localStorage.setItem(KEY,JSON.stringify({tag:tag,k:bu(raw)}));
     show(html);
   }catch(e){
-    err.textContent='口令不对';go.disabled=false;go.textContent='进入';
+    err.textContent='拼音名不对';go.disabled=false;go.textContent='进入';
   }
 });
 if(!window.crypto||!crypto.subtle){document.getElementById('err').textContent='这个浏览器不支持解密，请换用新版浏览器并通过 https 打开'}
