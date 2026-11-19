@@ -11,40 +11,65 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-:root{--ground:#f6f5f2;--card:#fff;--ink:#1c1c1c;--muted:#6b6b6b;--rule:#e3e1dc;--chip:#efeee9;
+/* 主题：早 8 点到 17 点浅色，其余时间深色（由 <head> 里的脚本按本地时间设置 data-theme） */
+:root{--ground:#f7f6f3;--card:#ffffff;--ink:#1d1d1f;--muted:#76767b;--rule:#e7e5e0;--chip:#f0efea;--accent:#2f6f5e;
+--shadow:0 1px 2px rgba(20,20,20,.04),0 8px 24px rgba(20,20,20,.06);
 --serif:"Noto Serif SC","Songti SC","STSong",Georgia,serif;
 --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
---mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-@media (prefers-color-scheme:dark){:root{--ground:#141414;--card:#1f1f1f;--ink:#ececec;--muted:#9a9a9a;--rule:#2e2e2e;--chip:#2a2a2a}}
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+:root[data-theme=dark]{--ground:#111214;--card:#1a1b1e;--ink:#e9e9eb;--muted:#9b9ba1;--rule:#2a2b2f;--chip:#24252a;--accent:#7cc4ad;
+--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35);color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.5 var(--sans);-webkit-text-size-adjust:100%}
-.wrap{max-width:720px;margin:0 auto;padding:28px 16px calc(40px + env(safe-area-inset-bottom))}
-h1{font:600 28px/1.2 var(--serif);margin:0 0 4px}
-.kicker{color:var(--muted);font-size:14px;margin:0 0 20px}
-h2{font:600 15px/1.3 var(--sans);color:var(--muted);letter-spacing:.04em;margin:26px 0 10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-a.item{display:block;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;color:inherit;text-decoration:none;transition:border-color .15s}
-a.item:hover,a.item:focus-visible{border-color:var(--muted);outline:none}
-a.item:active{transform:scale(.99)}
-.item b{display:block;font-size:16px;font-weight:600}
-.item span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
-.item i{font-style:normal;font-family:var(--mono);font-size:11px;background:var(--chip);color:var(--muted);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
-footer{margin-top:32px;color:var(--muted);font-size:12px;text-align:center}
-.pv{position:fixed;z-index:50;width:400px;height:250px;border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--rule);box-shadow:0 12px 32px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.12);pointer-events:none;opacity:0;transition:opacity .12s;display:none}
+html{background:var(--ground)}
+body{margin:0;background:var(--ground);color:var(--ink);font:15.5px/1.6 var(--sans);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;transition:background-color .4s ease,color .4s ease}
+::selection{background:var(--accent);color:var(--ground)}
+.wrap{max-width:760px;margin:0 auto;padding:56px 20px calc(48px + env(safe-area-inset-bottom))}
+h1{font:600 30px/1.2 var(--serif);letter-spacing:.02em;margin:0 0 6px}
+.kicker{color:var(--muted);font-size:14px;margin:0 0 36px}
+h2{display:flex;align-items:center;gap:12px;font:500 12px/1.3 var(--sans);color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin:36px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(216px,1fr));gap:12px}
+a.item{position:relative;display:block;background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;color:inherit;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s,background-color .4s}
+a.item:hover,a.item:focus-visible{border-color:transparent;box-shadow:var(--shadow);transform:translateY(-2px);outline:none}
+a.item:focus-visible{box-shadow:0 0 0 2px var(--accent),var(--shadow)}
+a.item:active{transform:translateY(0) scale(.99)}
+.item b{display:block;font-size:15.5px;font-weight:600;letter-spacing:.01em}
+.item span{display:block;color:var(--muted);font-size:13px;line-height:1.5;margin-top:3px}
+.item i{font-style:normal;font-family:var(--mono);font-size:10.5px;background:var(--chip);color:var(--muted);border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+footer{margin-top:48px;color:var(--muted);font-size:12px;text-align:center;opacity:.8}
+.pv{position:fixed;z-index:50;width:400px;height:250px;border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--rule);box-shadow:0 16px 40px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.1);pointer-events:none;opacity:0;transition:opacity .15s;display:none}
 .pv.on{opacity:1}
 .pv img{display:block;width:100%;height:100%;object-fit:cover}
 
-.gate{max-width:340px;margin:12vh auto 0;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:22px 20px}
-.gate h1{margin-bottom:14px}
-.gate input[type=password]{width:100%;font:16px/1.4 var(--sans);color:var(--ink);background:var(--ground);border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
-.gate input[type=password]:focus{outline:none;border-color:var(--muted)}
-.gate label{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;margin:12px 0}
-.gate button,.logout{font:600 15px/1 var(--sans);border-radius:8px;cursor:pointer}
-.gate button{width:100%;padding:11px;border:0;background:var(--ink);color:var(--ground)}
+.gate{max-width:340px;margin:16vh auto 0;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:28px 24px;box-shadow:var(--shadow)}
+.gate h1{margin-bottom:18px;text-align:center}
+.gate input[type=password]{width:100%;font:16px/1.4 var(--sans);color:var(--ink);background:var(--ground);border:1px solid var(--rule);border-radius:10px;padding:11px 13px;transition:border-color .2s,box-shadow .2s}
+.gate input[type=password]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.gate label{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13.5px;margin:14px 0}
+.gate input[type=checkbox]{accent-color:var(--accent)}
+.gate button,.logout{font:600 15px/1 var(--sans);border-radius:10px;cursor:pointer;transition:opacity .2s,border-color .2s,color .2s}
+.gate button{width:100%;padding:12px;border:0;background:var(--ink);color:var(--ground)}
+.gate button:hover{opacity:.88}
 .gate button:disabled{opacity:.6;cursor:wait}
-.err{color:#c0392b;font-size:14px;min-height:20px;margin:10px 0 0}
-.logout{display:block;margin:14px auto 0;padding:7px 14px;background:none;border:1px solid var(--rule);color:var(--muted);font-weight:400;font-size:13px}
+.err{color:#d0453a;font-size:13.5px;min-height:20px;margin:10px 0 0;text-align:center}
+.logout{display:block;margin:28px auto 0;padding:7px 16px;background:none;border:1px solid var(--rule);color:var(--muted);font-weight:400;font-size:12.5px}
+.logout:hover{color:var(--ink);border-color:var(--muted)}
+@media (max-width:520px){.wrap{padding-top:36px}h1{font-size:26px}.kicker{margin-bottom:26px}.grid{grid-template-columns:1fr 1fr;gap:10px}a.item{padding:12px 13px}}
+@media (max-width:360px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}a.item:hover,a.item:focus-visible{transform:none}}
 </style>
+<script>
+// 按本地时间切换主题：8:00–16:59 浅色，17:00–次日 7:59 深色；每分钟和切回页面时重新检查
+(function(){
+  function apply(){
+    var h=new Date().getHours(),t=(h>=8&&h<17)?'light':'dark',d=document.documentElement;
+    if(d.getAttribute('data-theme')!==t)d.setAttribute('data-theme',t);
+    var m=document.querySelector('meta[name=color-scheme]');if(m)m.setAttribute('content',t);
+  }
+  apply();setInterval(apply,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)apply()});
+})();
+</script>
 </head>
 <body><div class="wrap" id="app">
 <form class="gate" id="gate" autocomplete="off">
